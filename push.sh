@@ -2,7 +2,12 @@ git checkout Back-end-Project;
 
 git add .;
 
-git commit -m "$1";
+if [ $1 ]
+then
+	git commit -m "$1";
+else
+	git commit -m "默认PUSH";
+fi
 
 echo "message: $1";
 
