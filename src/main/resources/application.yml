@@ -1,0 +1,16 @@
+spring:
+  datasource:
+    url: "jdbc:mysql:///xdb"
+    username: "root"
+    password: "@Root/Cqq.5820"
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  data:
+    redis:
+      port: 6379
+      host: localhost
+logging:
+  level:
+    com.Alliance: debug
+
+server:
+  port: 8080

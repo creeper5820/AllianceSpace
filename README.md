@@ -1,2 +1,0 @@
-# AllianceSpace
-CodeSpace Resource Manager
