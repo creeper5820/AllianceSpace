@@ -29,27 +29,38 @@
         }
 
         .login-wrapper {
-            width: 360px;
-            height: 650px;
+            background-color: #3e566e;
+            backdrop-filter: blur(10px);
+            width: 270px;
+            height: 320px;
             border-radius: 15px;
-            padding: 0 50px;
+            padding: 20px 50px;
             position: relative;
             left: 50%;
             top: 50%;
             transform: translate(-50%, -50%);
-
-            background-color: #3e566e;
-            backdrop-filter: blur(10px);
             box-shadow: 10px 10px 20px rgba(33, 44, 55, .3);
+
         }
+
+        .remember {
+            color: #ffffff;
+            margin-top: 7px;
+            font-weight: bolder;
+            border-radius: 5px;
+            position: relative;
+            text-align: center;
+            font-size: 90%;
+        }
+
 
         .header {
             font-family: sans-serif;
-            font-size: 30px;
-            font-weight: bold;
+            font-size: 25px;
+            font-weight: lighter;
             text-align: center;
-            line-height: 120px;
-            color: #ffffffd3;
+            line-height: 70px;
+            color: #fcfcfcd3;
         }
 
         .input-item {
@@ -65,25 +76,27 @@
         }
 
         .input-item::placeholder {
-            color: #ffffffd2;
+            color: #c2c2c2;
             text-transform: uppercase;
 
         }
 
+
+
         .btn {
-            width: 92%;
+            width: 100%;
             flex: 1 1 auto;
             margin-top: 30px;
             padding: 10px;
             border-radius: 5px;
-            border-style: none;
+            border: none;
             text-align: center;
             text-transform: uppercase;
             position: relative;
             overflow: hidden;
             transition: 0.3s;
             background-image: linear-gradient(to right, #3077f1, #964df7);
-            color: #fff;
+            color: #ffffff;
             font-family: Arial, Helvetica, sans-serif;
             z-index: 0;
 
@@ -118,11 +131,14 @@
             width: 120%;
         }
 
+
+
+
+
         .jump {
-            left: 50px;
-            right: 0;
+            width: 40%;
             flex: 1 1 auto;
-            right: 60px;
+            right: 53px;
             padding: 5px;
             border-radius: 5px;
             text-align: center;
@@ -130,7 +146,7 @@
             position: absolute;
             overflow: hidden;
             transition: 0.3s;
-            background: #f7f7f78f;
+            background: #ffffff75;
             color: #222222;
             font-family: Arial, Helvetica, sans-serif;
             z-index: 0;
@@ -167,55 +183,30 @@
 
 <body>
     <div class="container">
-        <div class="login-wrapper">
-            <div class="header">账号注册</div>
-            <form action="" method="POST" class="form-wrapper">
-                {% csrf_token %}
-                <input type="text" name="studentID" id="studentID" class="input-item" placeholder="请输入学号">
+        <form action="" method="POST" class="login-wrapper">
+<!--            {% csrf_token %}-->
+            <div class="header">Alliance Codespace</div>
+            <div class="form-wrapper">
+                <input type="text" name="studentID" id="studentID" class="input-item" placeholder="请输入学号"
+                    value="{{studentID}}">
+                <input type="password" name="password" id="password" class="input-item" placeholder="请输入密码"
+                    value="{{password}}">
 
-                <input type="text" name="username" id="username" class="input-item" placeholder="请输入你的姓名">
+                <input type="checkbox" id="remember_password" class="remember" name="remember_password" value="yes">
+                <label for="remember_password" class="remember">记住密码</label>
 
-                <input type="text" name="group" id="group" class="input-item" placeholder="请输入你的组别">
-
-                <input type="text" name="grade" id="grade" class="input-item" placeholder="请输入你的年级（如：22级）">
-
-                <input type="password" name="password" id="pwd" class="input-item" placeholder="请输入密码">
-
-                <input type="password" name="repassword" id="identfy-pwd" class="input-item" placeholder="请再次输入密码">
-                <br>
-                <input class="jump" id="jump" onclick="window.location.href='return'" value="返回登录">
-                <br>
-                <input type="submit" class="btn" onclick="empty(this)" value="注册">
-            </form>
-        </div>
+                <input type="button" class="jump" onclick="window.location.href='../register'" value="没有账号？注册一个吧">
+                <input type="submit" class="btn" onclick="submits(this)" value="登入">
+            </div>
+        </form>
     </div>
+    {% if messages %}
     <script>
-        function empty(btn) {
-            var username = document.getElementById("username").value;
-            var pwd = document.getElementById("pwd").value;
-            var repwd = document.getElementById("identfy-pwd").value;
-            var studentID = document.getElementById("studentID").value;
-            var group = document.getElementById("group").value;
-            var grade = document.getElementById("grade").value;
-
-
-            if (!(username && pwd && repwd && studentID && group && grade)) {
-                document.getElementById('jump').value = "请填写所有内容";
-                document.getElementById('jump').style.backgroundColor = '#ff0000';
-                document.getElementById('jump').style.color = '#ffffff'
-                setTimeout("{document.getElementById('jump').value = '返回登录';document.getElementById('jump').style.backgroundColor = '#ffffff75';document.getElementById('jump').style.color = '#222222'}", 2000);
-                return;
-            }
-            if (pwd != repwd) {
-                document.getElementById('jump').value = "两次填写的密码不一致";
-                document.getElementById('jump').style.backgroundColor = '#ff0000';
-                document.getElementById('jump').style.color = '#ffffff'
-                setTimeout("{document.getElementById('jump').value = '返回登录';document.getElementById('jump').style.backgroundColor = '#ffffff75';document.getElementById('jump').style.color = '#222222'}", 2000);
-
-            }
-        };
-
+        {% for msg in messages %}
+        alert('{{ msg.message }}');
+        {% endfor %}
     </script>
+    {% endif %}
 </body>
 
 </html>

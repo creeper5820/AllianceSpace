@@ -29,31 +29,31 @@
         }
 
         .login-wrapper {
-            background-color: #3e566e;
-            backdrop-filter: blur(10px);
-            width: 270px;
-            height: 320px;
+            width: 360px;
+            height: 700px;
             border-radius: 15px;
-            padding: 20px 50px;
+            padding: 0 50px;
             position: relative;
             left: 50%;
             top: 50%;
             transform: translate(-50%, -50%);
-            box-shadow: 10px 10px 20px rgba(33, 44, 55, .3);
 
+            background-color: #3e566e;
+            backdrop-filter: blur(10px);
+            box-shadow: 10px 10px 20px rgba(33, 44, 55, .3);
         }
 
         .header {
             font-family: sans-serif;
             font-size: 30px;
-            font-weight: lighter;
+            font-weight: bold;
             text-align: center;
-            line-height: 70px;
-            color: #fcfcfcd3;
+            line-height: 120px;
+            color: #ffffffd3;
         }
 
         .input-item {
-            color: #ffffff;
+            color: #ffffffd2;
             width: 92%;
             margin-bottom: 30px;
             padding: 10px;
@@ -64,27 +64,41 @@
             background-color: transparent;
         }
 
+        .select-item {
+            color: #ffffffd2;
+            width: 98%;
+            margin-bottom: 30px;
+            padding: 10px;
+            font-size: 15px;
+            border-width: 2px;
+            border-radius: 5px;
+            border-color: #ffffff;
+            outline: none;
+            margin-top: 5px;
+            margin-bottom: 20px;
+            background-color: #3e566e;
+        }
+
         .input-item::placeholder {
-            color: #c2c2c2;
+            color: #ffffffd2;
             text-transform: uppercase;
 
         }
 
-
-
         .btn {
-            width: 93%;
+            width: 97%;
             flex: 1 1 auto;
             margin-top: 30px;
             padding: 10px;
             border-radius: 5px;
+            border-style: none;
             text-align: center;
             text-transform: uppercase;
             position: relative;
             overflow: hidden;
             transition: 0.3s;
             background-image: linear-gradient(to right, #3077f1, #964df7);
-            color: #ffffff;
+            color: #fff;
             font-family: Arial, Helvetica, sans-serif;
             z-index: 0;
 
@@ -119,30 +133,11 @@
             width: 120%;
         }
 
-
-
-        .remember {
-            width: 23%;
-            flex: 1 1 auto;
-            padding: 5px;
-            border-radius: 5px;
-            text-align: center;
-            text-transform: uppercase;
-            position: relative;
-            overflow: hidden;
-            transition: 0.3s;
-            background: #ffffff75;
-            color: #222222;
-            font-family: Arial, Helvetica, sans-serif;
-            z-index: 0;
-            border: none;
-        }
-
-
         .jump {
-            width: 40%;
+            left: 50px;
+            right: 0;
             flex: 1 1 auto;
-            right: 53px;
+            right: 60px;
             padding: 5px;
             border-radius: 5px;
             text-align: center;
@@ -150,7 +145,7 @@
             position: absolute;
             overflow: hidden;
             transition: 0.3s;
-            background: #ffffff75;
+            background: #f7f7f78f;
             color: #222222;
             font-family: Arial, Helvetica, sans-serif;
             z-index: 0;
@@ -188,50 +183,49 @@
 <body>
     <div class="container">
         <div class="login-wrapper">
-            <div class="header">Alliance Codespace</div>
-            <div class="form-wrapper">
-                <input type="text" name="number" id="username" class="input-item" placeholder="请输入学号">
-                <input type="password" name="number" id="pwd" class="input-item" placeholder="请输入密码">
-                <input type="button" class="remember" id="rememberpwd" onclick="remember(this)" value="记住密码"></button>
-                <button class="jump" onclick="window.location.href='register.html'">没有账号？注册一个吧</button>
-                <div class="btn" onclick="submits(this)">登入</div>
-            </div>
+            <div class="header">账号注册</div>
+            <form action="" method="POST" class="form-wrapper">
+                {% csrf_token %}
+                <input type="text" name="studentID" id="studentID" class="input-item" placeholder="请输入学号"
+                    value="{{get_studentID}}">
 
+                <input type="text" name="username" id="username" class="input-item" placeholder="请输入你的姓名"
+                    value="{{get_username}}">
+
+                <label class="input-item">请选择你的组别</label>
+                <select class="select-item" name="group" id="group">
+                    <option value="视觉">视觉</option>
+                    <option value="电控">电控</option>
+                    <option value="硬件">硬件</option>
+                    <option value="机械">机械</option>
+                </select>
+
+                <label class="input-item">请选择你的年级</label>
+                <select class="select-item" name="grade" id="grade">
+                    <option value="23级">23级</option>
+                    <option value="22级">22级</option>
+                    <option value="21级">21级</option>
+                    <option value="20级">20级</option>
+                    <option value="19级">19级</option>
+                </select>
+
+
+                <input type="password" name="password" id="pwd" class="input-item" placeholder="请输入密码">
+
+                <input type="password" name="repassword" id="identfy-pwd" class="input-item" placeholder="请再次输入密码">
+                <br>
+                <input type="button" class="jump" id="jump" onclick="window.location.href='return'" value="返回登录">
+                <br>
+                <input type="submit" class="btn" value="注册">
+            </form>
         </div>
     </div>
+    {% if messages %}
     <script>
-        function submits(btn) {
-            var username = document.getElementById("username").value;
-            var pwd = document.getElementById("pwd").value;
-            console.log(username);
-            console.log(pwd);
-            if (username == "" || pwd == "") {
-                document.getElementById('rememberpwd').style.width = "38%";
-                document.getElementById('rememberpwd').value = "账号或密码为空";
-                document.getElementById('rememberpwd').style.backgroundColor = '#ff0000';
-                document.getElementById('rememberpwd').style.color = '#ffffff'
-                setTimeout("{document.getElementById('rememberpwd').style.width = '23%';document.getElementById('rememberpwd').value = '记住密码';document.getElementById('rememberpwd').style.backgroundColor = '#ffffff75';document.getElementById('rememberpwd').style.color = '#222222'}", 2000);
-            }
-            else {
-            }
-        };
-
-        function remember(remember) {
-            var text = document.getElementById("rememberpwd");
-            var pwd = document.getElementById("pwd").value;
-
-            if (pwd == "") {
-                text.value = "密码为空";
-                text.style.backgroundColor = '#ff0000';
-                document.getElementById('rememberpwd').style.color = '#ffffff'
-                setTimeout("{document.getElementById('rememberpwd').value = '记住密码';document.getElementById('rememberpwd').style.backgroundColor = '#ffffff75';document.getElementById('rememberpwd').style.color = '#222222'}", 2000);
-            } else {
-                text.value = "✓已记住";
-                text.style.backgroundColor = '#427ef5';
-                text.style.color = '#ffffff'
-            }
-        }
+        {% for msg in messages %}
+        alert('{{ msg.message }}');
+        {% endfor %}
     </script>
+    {% endif %}
 </body>
-
 </html>
