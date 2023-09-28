@@ -1,14 +1,13 @@
-package com.alliance.alliancespace;
+package com.alliance.alliancedockermanager;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.stereotype.Controller;
 
 @SpringBootApplication
-public class AllianceSpaceApplication {
+public class AllianceDockerManagerApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(AllianceSpaceApplication.class, args);
+        SpringApplication.run(AllianceDockerManagerApplication.class, args);
     }
 
 }
